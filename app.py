@@ -4,10 +4,9 @@ import os
 app = Flask(__name__)
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
-# 👇 Cho phép Flask trả về file mp3 nằm cùng cấp app.py
 @app.route('/HonLaBan.mp3')
 def serve_music():
     return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'HonLaBan.mp3')
