@@ -135,43 +135,16 @@
   </style>
 </head>
 <body>
-<audio id="bgMusic" autoplay loop>
-  <source src="/HonLaBan.mp3" type="audio/mpeg">
-</audio>
 
-<button id="musicBtn">🎵 Bật/Tắt nhạc</button>
-
-<script>
-const audio = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
-
-// cho phép phát khi người dùng click
-document.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play().catch(e => console.log("Không thể phát:", e));
-  }
-});
-
-// nút bật/tắt
-btn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
-});
-</script>
-
-document.addEventListener("click", () => {
-  const audio = document.getElementById("bgMusic");
-  if (audio.paused) audio.play();
-});
-</script>
-
+  <!-- Nhạc nền -->
+  <audio id="bgMusic" loop>
+    <source src="/HonLaBan.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Nút bật/tắt nhạc -->
   <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
 
+  <!-- Bong bóng trang trí -->
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
@@ -217,7 +190,14 @@ document.addEventListener("click", () => {
       }, 400);
     }
 
-    // Điều khiển nhạc
+    // Bật nhạc khi click lần đầu
+    document.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play().catch(err => console.log("Không thể phát nhạc:", err));
+      }
+    });
+
+    // Nút bật/tắt nhạc
     musicBtn.addEventListener('click', () => {
       if (musicPlaying) {
         bgMusic.pause();
@@ -228,15 +208,6 @@ document.addEventListener("click", () => {
         musicPlaying = true;
         musicBtn.textContent = '🔇';
       }
-    });
-
-    window.addEventListener('load', () => {
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = '🔇';
-      }).catch(() => {
-        console.log('Trình duyệt chặn autoplay nhạc.');
-      });
     });
   </script>
 </body>
