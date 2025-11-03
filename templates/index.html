@@ -135,11 +135,33 @@
   </style>
 </head>
 <body>
- <audio id="bgMusic" autoplay loop controls>
+<audio id="bgMusic" autoplay loop>
   <source src="/HonLaBan.mp3" type="audio/mpeg">
 </audio>
 
+<button id="musicBtn">🎵 Bật/Tắt nhạc</button>
+
 <script>
+const audio = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+// cho phép phát khi người dùng click
+document.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play().catch(e => console.log("Không thể phát:", e));
+  }
+});
+
+// nút bật/tắt
+btn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
+</script>
+
 document.addEventListener("click", () => {
   const audio = document.getElementById("bgMusic");
   if (audio.paused) audio.play();
