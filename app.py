@@ -12,5 +12,6 @@ from flask import send_from_directory
 
 @app.route('/HonLaBan.mp3')
 def serve_music():
-    return send_from_directory('.', 'HonLaBan.mp3')
+    return send_from_directory('vuichoivahoctap', 'HonLaBan.mp3')
+
 
