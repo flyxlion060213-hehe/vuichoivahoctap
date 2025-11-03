@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vui Chơi Và Học Tập</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -139,40 +138,17 @@
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
 
- <!-- 🎶 Nhạc nền YouTube -->
-<button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
-<div id="musicPlayer" style="display:none;">
+  <!-- 🎵 Nút bật/tắt nhạc -->
+  <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
+
+  <!-- Nhúng nhạc YouTube (ẩn) -->
   <iframe 
-    id="ytMusic"
+    id="ytMusic" 
     width="0" height="0"
-    src="https://www.youtube.com/watch?v=UCmgGZbfjmk&list=RDUCmgGZbfjmk&start_radio=1&pp=ygUTbHVja3kgZ2lybCBzeW5kcm9tZaAHAQ%3D%3D"
+    src="https://www.youtube.com/watch?v=v9L5EUtYuG8"
     frameborder="0"
     allow="autoplay">
   </iframe>
-</div>
-
-<script>
-let musicOn = false;
-const btn = document.getElementById("musicBtn");
-
-// Khi nhấn nút 🎵
-btn.addEventListener("click", function() {
-  const iframe = document.getElementById("ytMusic").contentWindow;
-  if (!musicOn) {
-    // Bắt đầu phát nhạc 🎵
-    iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    btn.textContent = "🔇";  // 🔇 khi đang phát
-    musicOn = true;
-  } else {
-    // Tạm dừng nhạc 🔇
-    iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    btn.textContent = "🎵";  // 🎵 khi tắt
-    musicOn = false;
-  }
-});
-</script>
-
-
 
   <h1>VUI CHƠI VÀ HỌC TẬP 🎀</h1>
 
@@ -196,8 +172,8 @@ btn.addEventListener("click", function() {
     const mainButtons = document.getElementById('mainButtons');
     const scratchButtons = document.getElementById('scratchButtons');
     const musicBtn = document.getElementById('musicBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    let musicPlaying = false;
+    const ytMusic = document.getElementById('ytMusic');
+    let musicOn = false;
 
     function showScratch() {
       mainButtons.style.opacity = '0';
@@ -215,24 +191,18 @@ btn.addEventListener("click", function() {
       }, 400);
     }
 
+    // 🎵 Bật/tắt nhạc YouTube khi nhấn nút
     musicBtn.addEventListener('click', () => {
-      if (musicPlaying) {
-        bgMusic.pause();
-        musicPlaying = false;
+      const player = ytMusic.contentWindow;
+      if (!musicOn) {
+        player.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        musicOn = true;
         musicBtn.textContent = '🔇';
       } else {
-        bgMusic.play();
-        musicPlaying = true;
+        player.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        musicOn = false;
         musicBtn.textContent = '🎵';
       }
-    });
-
-    window.addEventListener('load', () => {
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-      }).catch(() => {
-        musicBtn.textContent = '▶️';
-      });
     });
   </script>
 </body>
