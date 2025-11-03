@@ -135,10 +135,17 @@
   </style>
 </head>
 <body>
-  <!-- 🎵 Nhạc nền -->
-  <audio id="bgMusic" autoplay loop>
-    <source src="/HonLaBan.mp3" type="audio/mpeg">
-  </audio>
+ <audio id="bgMusic" autoplay loop controls>
+  <source src="/HonLaBan.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click", () => {
+  const audio = document.getElementById("bgMusic");
+  if (audio.paused) audio.play();
+});
+</script>
+
 
   <!-- Nút bật/tắt nhạc -->
   <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
