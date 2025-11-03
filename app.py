@@ -8,3 +8,9 @@ def home():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+from flask import send_from_directory
+
+@app.route('/HonLaBan.mp3')
+def serve_music():
+    return send_from_directory('.', 'HonLaBan.mp3')
+
