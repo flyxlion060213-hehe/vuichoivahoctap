@@ -163,64 +163,73 @@
     </div>
   </div>
 
-  <script>
-    const mainButtons = document.getElementById('mainButtons');
-    const scratchButtons = document.getElementById('scratchButtons');
-    const musicBtn = document.getElementById('musicBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    let musicPlaying = false;
+ <script>
+  const mainButtons = document.getElementById('mainButtons');
+  const scratchButtons = document.getElementById('scratchButtons');
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  let musicPlaying = false;
 
-    // 🎶 Danh sách nhạc (đặt file mp3 cùng cấp app.py)
-    const playlist = [
-      '/RebelHeart.mp3',
-      '/LuckyGirlSyndrome.mp3',
-      '/HonLaBan.mp3'
-    ];
-    let currentSong = 0;
+  // 🎶 Danh sách nhạc
+  const playlist = [
+    '/RebelHeart.mp3',
+    '/LuckyGirlSyndrome.mp3',
+    '/HonLaBan.mp3'
+  ];
+  let currentSong = 0;
 
-    function playCurrent() {
-      bgMusic.src = playlist[currentSong];
-      bgMusic.play().then(() => {
+  function playCurrent() {
+    bgMusic.src = playlist[currentSong];
+    bgMusic.play()
+      .then(() => {
         musicPlaying = true;
         musicBtn.textContent = '🔇';
-      }).catch(err => console.log("Không thể phát nhạc:", err));
-    }
+      })
+      .catch(err => {
+        console.log("⚠️ Lỗi phát nhạc:", err);
+        alert("Bạn cần nhấn vào trang hoặc nút 🎵 để cho phép phát nhạc!");
+      });
+  }
 
-    bgMusic.addEventListener('ended', () => {
-      currentSong = (currentSong + 1) % playlist.length;
+  bgMusic.addEventListener('ended', () => {
+    currentSong = (currentSong + 1) % playlist.length;
+    playCurrent();
+  });
+
+  // Khi người dùng click nút 🎵
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (musicPlaying) {
+      bgMusic.pause();
+      musicPlaying = false;
+      musicBtn.textContent = '🎵';
+    } else {
       playCurrent();
-    });
-
-    document.addEventListener("click", () => {
-      if (bgMusic.paused) playCurrent();
-    }, { once: true });
-
-    musicBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (musicPlaying) {
-        bgMusic.pause();
-        musicPlaying = false;
-        musicBtn.textContent = '🎵';
-      } else {
-        playCurrent();
-      }
-    });
-
-    function showScratch() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        scratchButtons.classList.add('show');
-      }, 400);
     }
+  });
 
-    function backToMain() {
-      scratchButtons.classList.remove('show');
-      setTimeout(() => {
-        mainButtons.style.display = 'block';
-        setTimeout(() => mainButtons.style.opacity = '1', 100);
-      }, 400);
+  // Cho phép phát nhạc sau 1 lần chạm bất kỳ trên trang
+  document.addEventListener("click", () => {
+    if (!musicPlaying) {
+      playCurrent();
     }
-  </script>
+  }, { once: true });
+
+  function showScratch() {
+    mainButtons.style.opacity = '0';
+    setTimeout(() => {
+      mainButtons.style.display = 'none';
+      scratchButtons.classList.add('show');
+    }, 400);
+  }
+
+  function backToMain() {
+    scratchButtons.classList.remove('show');
+    setTimeout(() => {
+      mainButtons.style.display = 'block';
+      setTimeout(() => mainButtons.style.opacity = '1', 100);
+    }, 400);
+  }
+</script>
 </body>
 </html>
