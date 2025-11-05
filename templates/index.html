@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vui Chơi Và Học Tập</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
@@ -136,10 +136,13 @@
 </head>
 <body>
 
-  <!-- Nhạc nền nhiều bài -->
+  <!-- Nhạc nền -->
   <audio id="bgMusic" preload="auto"></audio>
-  <button id="musicBtn" title="Bật/Tắt nhạc">🎵</button>
 
+  <!-- Nút bật/tắt nhạc -->
+  <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
+
+  <!-- Bong bóng trang trí -->
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
@@ -152,84 +155,75 @@
     <div id="mainButtons">
       <button class="btn" onclick="window.open('https://discord.gg/ZYtu7Cqm', '_blank')">📚 Học Tập</button>
       <button class="btn" onclick="showScratch()">🎮 Vui Chơi Cùng Scratch</button>
-      <button class="btn" onclick="window.open('#', '_blank')">💬 Vui Chơi Cùng Python</button>
+      <button class="btn">💬 Vui Chơi Cùng Python</button>
     </div>
 
     <div id="scratchButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính lớp 1-2</button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
   </div>
 
- <script>
-  const mainButtons = document.getElementById('mainButtons');
-  const scratchButtons = document.getElementById('scratchButtons');
-  const musicBtn = document.getElementById('musicBtn');
-  const bgMusic = document.getElementById('bgMusic');
-  let musicPlaying = false;
+  <script>
+    const musicList = [
+      "/HonLaBan.mp3",
+      "/RebelHeart.mp3",
+      "/LuckyGirlSyndrome.mp3"
+    ];
 
-  // 🎶 Danh sách nhạc
-  const playlist = [
-    '/RebelHeart.mp3',
-    '/LuckyGirlSyndrome.mp3',
-    '/HonLaBan.mp3'
-  ];
-  let currentSong = 0;
+    let currentTrack = 0;
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    let musicPlaying = false;
 
-  function playCurrent() {
-    bgMusic.src = playlist[currentSong];
-    bgMusic.play()
-      .then(() => {
+    function playMusic() {
+      bgMusic.src = musicList[currentTrack];
+      bgMusic.play().then(() => {
         musicPlaying = true;
-        musicBtn.textContent = '🔇';
-      })
-      .catch(err => {
-        console.log("⚠️ Lỗi phát nhạc:", err);
-        alert("Bạn cần nhấn vào trang hoặc nút 🎵 để cho phép phát nhạc!");
-      });
-  }
-
-  bgMusic.addEventListener('ended', () => {
-    currentSong = (currentSong + 1) % playlist.length;
-    playCurrent();
-  });
-
-  // Khi người dùng click nút 🎵
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (musicPlaying) {
-      bgMusic.pause();
-      musicPlaying = false;
-      musicBtn.textContent = '🎵';
-    } else {
-      playCurrent();
+        musicBtn.textContent = "🔇";
+      }).catch(err => console.log("Không thể phát:", err));
     }
-  });
 
-  // Cho phép phát nhạc sau 1 lần chạm bất kỳ trên trang
-  document.addEventListener("click", () => {
-    if (!musicPlaying) {
-      playCurrent();
+    bgMusic.addEventListener("ended", () => {
+      currentTrack = (currentTrack + 1) % musicList.length;
+      playMusic();
+    });
+
+    document.addEventListener("click", () => {
+      if (!musicPlaying) playMusic();
+    }, { once: true });
+
+    musicBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicBtn.textContent = "🎵";
+      } else {
+        playMusic();
+      }
+    });
+
+    // Hiển thị/ẩn nhóm nút
+    const mainButtons = document.getElementById("mainButtons");
+    const scratchButtons = document.getElementById("scratchButtons");
+
+    function showScratch() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        scratchButtons.classList.add('show');
+      }, 400);
     }
-  }, { once: true });
 
-  function showScratch() {
-    mainButtons.style.opacity = '0';
-    setTimeout(() => {
-      mainButtons.style.display = 'none';
-      scratchButtons.classList.add('show');
-    }, 400);
-  }
-
-  function backToMain() {
-    scratchButtons.classList.remove('show');
-    setTimeout(() => {
-      mainButtons.style.display = 'block';
-      setTimeout(() => mainButtons.style.opacity = '1', 100);
-    }, 400);
-  }
-</script>
+    function backToMain() {
+      scratchButtons.classList.remove('show');
+      setTimeout(() => {
+        mainButtons.style.display = 'block';
+        setTimeout(() => mainButtons.style.opacity = '1', 100);
+      }, 400);
+    }
+  </script>
 </body>
 </html>
