@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vui Chơi Và Học Tập</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -27,34 +26,21 @@
       font-size: 3rem;
       margin-bottom: 40px;
       text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
-      animation: floatTitle 3s ease-in-out infinite;
-    }
-
-    @keyframes floatTitle {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 30px;
       box-shadow: 0 10px 30px rgba(255, 140, 180, 0.25);
       padding: 50px 60px;
       max-width: 500px;
       backdrop-filter: blur(12px);
-      animation: fadeInUp 1.5s ease;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 35px rgba(255, 150, 200, 0.5);
-    }
-
-    p {
-      color: #ff6fa6;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
     }
 
     .btn {
@@ -77,36 +63,6 @@
       box-shadow: 0 0 25px rgba(255, 150, 200, 0.8);
     }
 
-    .sub-buttons {
-      display: none;
-      margin-top: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-
-    .sub-buttons.show {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 10s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-25px); }
-    }
-
-    .b1 { width: 90px; height: 90px; background: #ffc4d8; top: 10%; left: 10%; animation-delay: 0s; }
-    .b2 { width: 130px; height: 130px; background: #ffd6e7; bottom: 15%; right: 15%; animation-delay: 2s; }
-    .b3 { width: 70px; height: 70px; background: #ffb6d5; top: 55%; right: 10%; animation-delay: 1s; }
-
     #musicBtn {
       position: absolute;
       top: 20px;
@@ -127,42 +83,19 @@
       transform: scale(1.15);
       background: rgba(255, 140, 180, 0.9);
     }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Nhạc nền -->
   <audio id="bgMusic" preload="auto"></audio>
-
-  <!-- Nút bật/tắt nhạc -->
   <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
-
-  <!-- Bong bóng trang trí -->
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
 
   <h1>VUI CHƠI VÀ HỌC TẬP 🎀</h1>
 
   <div class="card">
     <p>Hãy chọn một hoạt động để bắt đầu 💕</p>
-
-    <div id="mainButtons">
-      <button class="btn" onclick="window.open('https://discord.gg/ZYtu7Cqm', '_blank')">📚 Học Tập</button>
-      <button class="btn" onclick="showScratch()">🎮 Vui Chơi Cùng Scratch</button>
-      <button class="btn">💬 Vui Chơi Cùng Python</button>
-    </div>
-
-    <div id="scratchButtons" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
-    </div>
+    <button class="btn" onclick="window.open('https://discord.gg/ZYtu7Cqm', '_blank')">📚 Học Tập</button>
+    <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">🎮 Vui Chơi</button>
   </div>
 
   <script>
@@ -171,59 +104,33 @@
       "/RebelHeart.mp3",
       "/LuckyGirlSyndrome.mp3"
     ];
-
-    let currentTrack = 0;
+    let current = 0;
     const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-    let musicPlaying = false;
+    const btn = document.getElementById("musicBtn");
+    let playing = false;
 
-    function playMusic() {
-      bgMusic.src = musicList[currentTrack];
+    function playTrack() {
+      bgMusic.src = musicList[current];
       bgMusic.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = "🔇";
-      }).catch(err => console.log("Không thể phát:", err));
+        playing = true;
+        btn.textContent = "🔇";
+      }).catch(err => console.log("Không phát được:", err));
     }
 
     bgMusic.addEventListener("ended", () => {
-      currentTrack = (currentTrack + 1) % musicList.length;
-      playMusic();
+      current = (current + 1) % musicList.length;
+      playTrack();
     });
 
-    document.addEventListener("click", () => {
-      if (!musicPlaying) playMusic();
-    }, { once: true });
-
-    musicBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (musicPlaying) {
+    btn.addEventListener("click", () => {
+      if (playing) {
         bgMusic.pause();
-        musicPlaying = false;
-        musicBtn.textContent = "🎵";
+        btn.textContent = "🎵";
+        playing = false;
       } else {
-        playMusic();
+        playTrack();
       }
     });
-
-    // Hiển thị/ẩn nhóm nút
-    const mainButtons = document.getElementById("mainButtons");
-    const scratchButtons = document.getElementById("scratchButtons");
-
-    function showScratch() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        scratchButtons.classList.add('show');
-      }, 400);
-    }
-
-    function backToMain() {
-      scratchButtons.classList.remove('show');
-      setTimeout(() => {
-        mainButtons.style.display = 'block';
-        setTimeout(() => mainButtons.style.opacity = '1', 100);
-      }, 400);
-    }
   </script>
 </body>
 </html>
