@@ -136,20 +136,13 @@
 </head>
 <body>
 
-  <!-- Nhạc nền -->
-  <audio id="bgMusic" loop>
-    <!-- Đổi src nếu file không nằm ở / -->
-    <source src="/HonLaBan.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ thẻ audio.
-  </audio>
+  <!-- Nhạc nền nhiều bài -->
+  <audio id="bgMusic" preload="auto"></audio>
+  <button id="musicBtn" title="Bật/Tắt nhạc">🎵</button>
 
-  <!-- Nút bật/tắt nhạc -->
-  <button id="musicBtn" title="Bật/Tắt nhạc" aria-label="Bật/Tắt nhạc">🎵</button>
-
-  <!-- Bong bóng trang trí -->
-  <div class="bubble b1" aria-hidden="true"></div>
-  <div class="bubble b2" aria-hidden="true"></div>
-  <div class="bubble b3" aria-hidden="true"></div>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
 
   <h1>VUI CHƠI VÀ HỌC TẬP 🎀</h1>
 
@@ -162,10 +155,10 @@
       <button class="btn" onclick="window.open('#', '_blank')">💬 Vui Chơi Cùng Python</button>
     </div>
 
-    <div id="scratchButtons" class="sub-buttons" aria-hidden="true">
+    <div id="scratchButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính trong phạm vi 100 dành cho học sinh lớp 1,2</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính lớp 1-2</button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
   </div>
@@ -177,53 +170,57 @@
     const bgMusic = document.getElementById('bgMusic');
     let musicPlaying = false;
 
-    function showScratch() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        scratchButtons.classList.add('show');
-        scratchButtons.setAttribute('aria-hidden', 'false');
-      }, 400);
+    // 🎶 Danh sách nhạc (đặt file mp3 cùng cấp app.py)
+    const playlist = [
+      '/RebelHeart.mp3',
+      '/LuckyGirlSyndrome.mp3',
+      '/HonLaBan.mp3'
+    ];
+    let currentSong = 0;
+
+    function playCurrent() {
+      bgMusic.src = playlist[currentSong];
+      bgMusic.play().then(() => {
+        musicPlaying = true;
+        musicBtn.textContent = '🔇';
+      }).catch(err => console.log("Không thể phát nhạc:", err));
     }
 
-    function backToMain() {
-      scratchButtons.classList.remove('show');
-      scratchButtons.setAttribute('aria-hidden', 'true');
-      setTimeout(() => {
-        mainButtons.style.display = 'block';
-        setTimeout(() => mainButtons.style.opacity = '1', 100);
-      }, 400);
-    }
+    bgMusic.addEventListener('ended', () => {
+      currentSong = (currentSong + 1) % playlist.length;
+      playCurrent();
+    });
 
-    // Phát nhạc khi người dùng tương tác lần đầu (để tuân chính sách trình duyệt)
     document.addEventListener("click", () => {
-      // nếu audio đã được play hoặc đang chơi thì không làm gì
-      if (bgMusic.paused) {
-        bgMusic.play().then(() => {
-          musicPlaying = true;
-          musicBtn.textContent = '🔇'; // đang chơi -> cho nút hiển thị "tắt"
-        }).catch(err => {
-          console.log("Không thể phát nhạc tự động:", err);
-        });
-      }
+      if (bgMusic.paused) playCurrent();
     }, { once: true });
 
-    // Nút bật/tắt nhạc
     musicBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (musicPlaying) {
         bgMusic.pause();
         musicPlaying = false;
-        musicBtn.textContent = '🎵'; // đang tắt -> hiển thị "mở"
+        musicBtn.textContent = '🎵';
       } else {
-        bgMusic.play().then(() => {
-          musicPlaying = true;
-          musicBtn.textContent = '🔇'; // đang chơi -> hiển thị "tắt"
-        }).catch(err => {
-          console.log("Không thể phát nhạc:", err);
-        });
+        playCurrent();
       }
     });
+
+    function showScratch() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        scratchButtons.classList.add('show');
+      }, 400);
+    }
+
+    function backToMain() {
+      scratchButtons.classList.remove('show');
+      setTimeout(() => {
+        mainButtons.style.display = 'block';
+        setTimeout(() => mainButtons.style.opacity = '1', 100);
+      }, 400);
+    }
   </script>
 </body>
 </html>
