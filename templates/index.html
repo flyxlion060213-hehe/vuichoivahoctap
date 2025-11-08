@@ -144,7 +144,7 @@
   <!-- Nút bật/tắt nhạc -->
   <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
 
-  <!-- Bong bóng trang trí -->
+  <!-- Bong bóng -->
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
@@ -155,64 +155,76 @@
     <p>Hãy chọn một hoạt động để bắt đầu 💕</p>
 
     <div id="mainButtons">
-      <button class="btn" onclick="window.open('https://discord.gg/hwWg6FkDfs')">📚 Học Tập</button>
-      <button class="btn" onclick="showScratch()">🎮 Vui Chơi Cùng Scratch</button>
-      <button class="btn" onclick="showPython()">💬 Vui Chơi Cùng Python</button>
+      <button class="btn" onclick="window.open('https://discord.gg/hwWg6FkDfs')">🤖 CHAT BOT AI</button>
+      <button class="btn" onclick="showFun()">🎮 Giải Trí</button>
+      <button class="btn" onclick="showStudy()">📚 Học Tập</button>
     </div>
 
-    <!-- Sub menu cho Scratch -->
+    <!-- Mục chọn loại vui chơi -->
+    <div id="funMenu" class="sub-buttons">
+      <button class="btn" onclick="showScratch()">🧩 Scratch</button>
+      <button class="btn" onclick="showPython()">🐍 Python</button>
+      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+    </div>
+
+    <!-- Sub menu Scratch -->
     <div id="scratchButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
     </div>
 
-    <!-- Sub menu cho Python -->
+    <!-- Sub menu Python -->
     <div id="pythonButtons" class="sub-buttons">
-      <a class="btn" href="DoBom.py" download>💥 Dò Bom</a>
-      <a class="btn" href="VotBong.py" download>🥍 Vợt Bóng</a>   
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+      <a class="btn" href="DoBom.py" download>💣 Dò Bom</a>
+      <a class="btn" href="VotBong.py" download>🏐 Vợt Bóng</a>
+      <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
     </div>
   </div>
 
   <script>
     const mainButtons = document.getElementById('mainButtons');
+    const funMenu = document.getElementById('funMenu');
     const scratchButtons = document.getElementById('scratchButtons');
     const pythonButtons = document.getElementById('pythonButtons');
     const musicBtn = document.getElementById('musicBtn');
     const bgMusic = document.getElementById('bgMusic');
     let musicPlaying = false;
 
-    // 🧠 Chuyển qua phần Scratch
+    function showFun() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        funMenu.classList.add('show');
+      }, 400);
+    }
+
     function showScratch() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        scratchButtons.classList.add('show');
-      }, 400);
+      funMenu.classList.remove('show');
+      setTimeout(() => scratchButtons.classList.add('show'), 400);
     }
 
-    // 💬 Chuyển qua phần Python
     function showPython() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        pythonButtons.classList.add('show');
-      }, 400);
+      funMenu.classList.remove('show');
+      setTimeout(() => pythonButtons.classList.add('show'), 400);
     }
 
-    // ⬅️ Quay lại menu chính
-    function backToMain() {
+    function backToFun() {
       scratchButtons.classList.remove('show');
       pythonButtons.classList.remove('show');
+      setTimeout(() => funMenu.classList.add('show'), 400);
+    }
+
+    function backToMain() {
+      funMenu.classList.remove('show');
       setTimeout(() => {
         mainButtons.style.display = 'block';
         setTimeout(() => mainButtons.style.opacity = '1', 100);
       }, 400);
     }
 
-    // 🎵 Điều khiển nhạc
+    // 🎵 Nhạc nền
     document.addEventListener("click", () => {
       if (bgMusic.paused) {
         bgMusic.play().then(() => {
