@@ -4,13 +4,12 @@ import os
 app = Flask(__name__)
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
-# Cho phép trả file mp3
-@app.route('/<filename>.mp3')
-def serve_music(filename):
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), f"{filename}.mp3")
+@app.route('/REBEL HEART.mp3')
+def serve_music():
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'REBEL HEART.mp3')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
