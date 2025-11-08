@@ -170,7 +170,8 @@
 
     <!-- Sub menu cho Python -->
     <div id="pythonButtons" class="sub-buttons">
-      <button class="btn" onclick="startPythonGame()">💥 Dò Bom</button>
+      <button class="btn" href="DoBom.py" download>💥 Dò Bom</button>
+      <button class="btn" href="VotBong.py" download>💥 Vợt Bóng</button>   
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
   </div>
@@ -233,10 +234,6 @@
         musicBtn.textContent = '🎵';
       }
     });
-
-    // ▶️ Mở game Python
-    function startPythonGame() {
-      window.open('DoBom.py'); // hoặc alert("Hãy mở game.py bằng Python 🎮");
     }
   </script>
 </body>
