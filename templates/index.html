@@ -157,63 +157,87 @@
     <div id="mainButtons">
       <button class="btn" onclick="window.open('https://discord.gg/hwWg6FkDfs')">📚 Học Tập</button>
       <button class="btn" onclick="showScratch()">🎮 Vui Chơi Cùng Scratch</button>
-      <button class="btn">💬 Vui Chơi Cùng Python</button>
+      <button class="btn" onclick="showPython()">💬 Vui Chơi Cùng Python</button>
     </div>
 
+    <!-- Sub menu cho Scratch -->
     <div id="scratchButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản </button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
+      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+    </div>
+
+    <!-- Sub menu cho Python -->
+    <div id="pythonButtons" class="sub-buttons">
+      <button class="btn" onclick="startPythonGame()">💥 Dò Bom</button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
   </div>
 
- <script>
-  const mainButtons = document.getElementById('mainButtons');
-  const scratchButtons = document.getElementById('scratchButtons');
-  const musicBtn = document.getElementById('musicBtn');
-  const bgMusic = document.getElementById('bgMusic');
-  let musicPlaying = false;
+  <script>
+    const mainButtons = document.getElementById('mainButtons');
+    const scratchButtons = document.getElementById('scratchButtons');
+    const pythonButtons = document.getElementById('pythonButtons');
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    let musicPlaying = false;
 
-  function showScratch() {
-    mainButtons.style.opacity = '0';
-    setTimeout(() => {
-      mainButtons.style.display = 'none';
-      scratchButtons.classList.add('show');
-    }, 400);
-  }
-
-  function backToMain() {
-    scratchButtons.classList.remove('show');
-    setTimeout(() => {
-      mainButtons.style.display = 'block';
-      setTimeout(() => mainButtons.style.opacity = '1', 100);
-    }, 400);
-  }
-
-  // Bật nhạc khi người dùng click lần đầu vào trang
-  document.addEventListener("click", () => {
-    if (bgMusic.paused) {
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = '🔇'; // Hiện biểu tượng tắt
-      }).catch(err => console.log("Không thể phát nhạc:", err));
+    // 🧠 Chuyển qua phần Scratch
+    function showScratch() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        scratchButtons.classList.add('show');
+      }, 400);
     }
-  }, { once: true }); // chỉ chạy 1 lần
 
-  // Nút bật/tắt nhạc
-  musicBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = '🔇';
-      }).catch(err => console.log("Không thể phát nhạc:", err));
-    } else {
-      bgMusic.pause();
-      musicPlaying = false;
-      musicBtn.textContent = '🎵';
+    // 💬 Chuyển qua phần Python
+    function showPython() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        pythonButtons.classList.add('show');
+      }, 400);
     }
-  });
-</script>
+
+    // ⬅️ Quay lại menu chính
+    function backToMain() {
+      scratchButtons.classList.remove('show');
+      pythonButtons.classList.remove('show');
+      setTimeout(() => {
+        mainButtons.style.display = 'block';
+        setTimeout(() => mainButtons.style.opacity = '1', 100);
+      }, 400);
+    }
+
+    // 🎵 Điều khiển nhạc
+    document.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          musicBtn.textContent = '🔇';
+        }).catch(err => console.log("Không thể phát nhạc:", err));
+      }
+    }, { once: true });
+
+    musicBtn.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          musicBtn.textContent = '🔇';
+        }).catch(err => console.log("Không thể phát nhạc:", err));
+      } else {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicBtn.textContent = '🎵';
+      }
+    });
+
+    // ▶️ Mở game Python
+    function startPythonGame() {
+      window.open('DoBom.py'); // hoặc alert("Hãy mở game.py bằng Python 🎮");
+    }
+  </script>
 </body>
 </html>
