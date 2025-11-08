@@ -168,48 +168,52 @@
     </div>
   </div>
 
-  <script>
-    const mainButtons = document.getElementById('mainButtons');
-    const scratchButtons = document.getElementById('scratchButtons');
-    const musicBtn = document.getElementById('musicBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    let musicPlaying = false;
+ <script>
+  const mainButtons = document.getElementById('mainButtons');
+  const scratchButtons = document.getElementById('scratchButtons');
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  let musicPlaying = false;
 
-    function showScratch() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        scratchButtons.classList.add('show');
-      }, 400);
+  function showScratch() {
+    mainButtons.style.opacity = '0';
+    setTimeout(() => {
+      mainButtons.style.display = 'none';
+      scratchButtons.classList.add('show');
+    }, 400);
+  }
+
+  function backToMain() {
+    scratchButtons.classList.remove('show');
+    setTimeout(() => {
+      mainButtons.style.display = 'block';
+      setTimeout(() => mainButtons.style.opacity = '1', 100);
+    }, 400);
+  }
+
+  // Bật nhạc khi người dùng click lần đầu vào trang
+  document.addEventListener("click", () => {
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => {
+        musicPlaying = true;
+        musicBtn.textContent = '🔇'; // Hiện biểu tượng tắt
+      }).catch(err => console.log("Không thể phát nhạc:", err));
     }
+  }, { once: true }); // chỉ chạy 1 lần
 
-    function backToMain() {
-      scratchButtons.classList.remove('show');
-      setTimeout(() => {
-        mainButtons.style.display = 'block';
-        setTimeout(() => mainButtons.style.opacity = '1', 100);
-      }, 400);
-    }
-
-    // Bật nhạc khi click lần đầu
-    document.addEventListener("click", () => {
-      if (bgMusic.paused) {
-        bgMusic.play().catch(err => console.log("Không thể phát nhạc:", err));
-      }
-    });
-
-    // Nút bật/tắt nhạc
-    musicBtn.addEventListener('click', () => {
-      if (musicPlaying) {
-        bgMusic.pause();
-        musicPlaying = false;
-        musicBtn.textContent = '🎵';
-      } else {
-        bgMusic.play();
+  // Nút bật/tắt nhạc
+  musicBtn.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => {
         musicPlaying = true;
         musicBtn.textContent = '🔇';
-      }
-    });
-  </script>
+      }).catch(err => console.log("Không thể phát nhạc:", err));
+    } else {
+      bgMusic.pause();
+      musicPlaying = false;
+      musicBtn.textContent = '🎵';
+    }
+  });
+</script>
 </body>
 </html>
