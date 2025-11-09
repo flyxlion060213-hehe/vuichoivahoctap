@@ -82,7 +82,7 @@
       margin-top: 20px;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.6s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .sub-buttons.show {
@@ -137,7 +137,7 @@
 <body>
 
   <!-- Nhạc nền -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop preload="auto">
     <source src="/REBEL HEART.mp3" type="audio/mpeg">
   </audio>
 
@@ -182,7 +182,7 @@
 
     <!-- Menu học tập -->
     <div id="showStudy" class="sub-buttons">
-       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
@@ -195,7 +195,6 @@
     const pythonButtons = document.getElementById('pythonButtons');
     const musicBtn = document.getElementById('musicBtn');
     const bgMusic = document.getElementById('bgMusic');
-    let musicPlaying = false;
 
     function showFun() {
       mainButtons.style.opacity = '0';
@@ -221,41 +220,33 @@
       setTimeout(() => funMenu.classList.add('show'), 400);
     }
 
+    function showStudy() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        document.getElementById('showStudy').classList.add('show');
+      }, 400);
+    }
+
     function backToMain() {
       funMenu.classList.remove('show');
+      document.getElementById('showStudy').classList.remove('show'); // fix lỗi hiển thị lại menu học tập
+      scratchButtons.classList.remove('show');
+      pythonButtons.classList.remove('show');
       setTimeout(() => {
         mainButtons.style.display = 'block';
         setTimeout(() => mainButtons.style.opacity = '1', 100);
       }, 400);
     }
 
-     function showStudy() {
-  mainButtons.style.opacity = '0';
-  setTimeout(() => {
-    mainButtons.style.display = 'none';
-    document.getElementById('showStudy').classList.add('show');
-  }, 400);
-}
-
-    // 🎵 Nhạc nền
-    document.addEventListener("click", () => {
-      if (bgMusic.paused) {
-        bgMusic.play().then(() => {
-          musicPlaying = true;
-          musicBtn.textContent = '🔇';
-        }).catch(err => console.log("Không thể phát nhạc:", err));
-      }
-    }, { once: true });
-
+    // 🎵 Nhạc nền toggle
     musicBtn.addEventListener('click', () => {
       if (bgMusic.paused) {
         bgMusic.play().then(() => {
-          musicPlaying = true;
           musicBtn.textContent = '🔇';
         }).catch(err => console.log("Không thể phát nhạc:", err));
       } else {
         bgMusic.pause();
-        musicPlaying = false;
         musicBtn.textContent = '🎵';
       }
     });
