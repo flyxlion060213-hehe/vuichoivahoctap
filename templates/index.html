@@ -139,30 +139,21 @@
   font-size: 3rem;
   margin-bottom: 40px;
   text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
-  opacity: 0;
-  transform: translateX(-60px);
-  animation: slideInLeft 2.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid rgba(255, 119, 169, 0.8);
+  width: 0;
+  animation: typing 5s steps(30, end) forwards, blink 0.8s step-end infinite;
 }
 
-@keyframes slideInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-60px);
-    filter: blur(4px);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(5px);
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
-  }
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-
+@keyframes blink {
+  50% { border-color: transparent; }
+}
   </style>
 </head>
 <body>
@@ -279,16 +270,14 @@
         bgMusic.pause();
         musicBtn.textContent = '🎵';
       }
-     // 🌈 Lặp lại hiệu ứng slide-in mỗi 10 giây
-function replayTitleAnimation() {
+ function replayTitleAnimation() {
   const title = document.getElementById('animatedTitle');
-  title.style.animation = 'none'; // reset animation
-  void title.offsetWidth; // trick để reload animation
-  title.style.animation = 'slideInLeft 2.3s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+  title.style.animation = 'none';
+  void title.offsetWidth; // reset animation trick
+  title.style.animation = 'typing 5s steps(30, end) forwards, blink 0.8s step-end infinite';
 }
 
 setInterval(replayTitleAnimation, 10000);
-
     });
   </script>
 </body>
