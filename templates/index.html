@@ -132,6 +132,29 @@
       0% { opacity: 0; transform: translateY(40px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+
+    #animatedTitle {
+  font-family: 'Pacifico', cursive;
+  color: #ff77a9;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideIn 2s ease forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   </style>
 </head>
 <body>
@@ -148,9 +171,7 @@
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
-
-  <h1>VUI CHƠI VÀ HỌC TẬP 🎀</h1>
-
+  <h1 id="animatedTitle">VUI CHƠI VÀ HỌC TẬP 🎀</h1>
   <div class="card">
     <p>Hãy chọn một hoạt động để bắt đầu 💕</p>
 
@@ -250,6 +271,16 @@
         bgMusic.pause();
         musicBtn.textContent = '🎵';
       }
+      // 🌈 Lặp lại hiệu ứng chữ tiêu đề mỗi 10 giây
+function replayTitleAnimation() {
+  const title = document.getElementById('animatedTitle');
+  title.style.animation = 'none'; // reset animation
+  void title.offsetWidth; // trick để trình duyệt reload animation
+  title.style.animation = 'slideIn 2s ease forwards';
+}
+
+setInterval(replayTitleAnimation, 10000);
+
     });
   </script>
 </body>
