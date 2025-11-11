@@ -160,7 +160,7 @@
 
   <!-- Nhạc nền -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="/Love In My Heart.mp3" type="audio/mpeg">
+    <source src="/Love_In_My_Heart.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
@@ -270,7 +270,8 @@
         bgMusic.pause();
         musicBtn.textContent = '🎵';
       }
- function replayTitleAnimation() {
+    });
+     function replayTitleAnimation() {
   const title = document.getElementById('animatedTitle');
   title.style.animation = 'none';
   void title.offsetWidth; // reset animation trick
@@ -278,7 +279,6 @@
 }
 
 setInterval(replayTitleAnimation, 20000);
-    });
   </script>
 </body>
 </html>
