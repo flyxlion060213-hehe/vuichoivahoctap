@@ -140,20 +140,28 @@
   margin-bottom: 40px;
   text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
   opacity: 0;
-  transform: translateY(40px);
-  animation: slideIn 2s ease forwards;
+  transform: translateX(-60px);
+  animation: slideInLeft 2.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-@keyframes slideIn {
+@keyframes slideInLeft {
   0% {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateX(-60px);
+    filter: blur(4px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(5px);
+    filter: blur(1px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+    filter: blur(0);
   }
 }
+
 
   </style>
 </head>
@@ -271,12 +279,12 @@
         bgMusic.pause();
         musicBtn.textContent = '🎵';
       }
-      // 🌈 Lặp lại hiệu ứng chữ tiêu đề mỗi 10 giây
+     // 🌈 Lặp lại hiệu ứng slide-in mỗi 10 giây
 function replayTitleAnimation() {
   const title = document.getElementById('animatedTitle');
   title.style.animation = 'none'; // reset animation
-  void title.offsetWidth; // trick để trình duyệt reload animation
-  title.style.animation = 'slideIn 2s ease forwards';
+  void title.offsetWidth; // trick để reload animation
+  title.style.animation = 'slideInLeft 2.3s cubic-bezier(0.25, 1, 0.5, 1) forwards';
 }
 
 setInterval(replayTitleAnimation, 10000);
