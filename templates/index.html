@@ -261,16 +261,27 @@
     }
 
     // 🎵 Nhạc nền toggle
-    musicBtn.addEventListener('click', () => {
-      if (bgMusic.paused) {
-        bgMusic.play().then(() => {
-          musicBtn.textContent = '🔇';
-        }).catch(err => console.log("Không thể phát nhạc:", err));
-      } else {
-        bgMusic.pause();
-        musicBtn.textContent = '🎵';
-      }
-    });
+   let musicStarted = false;
+
+musicBtn.addEventListener('click', () => {
+  if (!musicStarted) {
+    // Chỉ play lần đầu sau click
+    bgMusic.play().then(() => {
+      musicBtn.textContent = '🔇';
+      musicStarted = true;
+    }).catch(err => console.log("Không thể phát nhạc:", err));
+  } else {
+    // Toggle bình thường
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => musicBtn.textContent = '🔇')
+        .catch(err => console.log("Không thể phát nhạc:", err));
+    } else {
+      bgMusic.pause();
+      musicBtn.textContent = '🎵';
+    }
+  }
+});
+
      function replayTitleAnimation() {
   const title = document.getElementById('animatedTitle');
   title.style.animation = 'none';
