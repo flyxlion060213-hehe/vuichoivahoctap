@@ -7,12 +7,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/Love_In_My_Heart.mp3')
+@app.route('/Lucky Girl Syndrome.mp3')
 def serve_music():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'Love_In_My_Heart.mp3')
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'Lucky Girl Syndrome.mp3')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
 
 
 
