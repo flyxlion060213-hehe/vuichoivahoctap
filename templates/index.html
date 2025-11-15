@@ -202,10 +202,26 @@
 
     <!-- Menu học tập -->
     <div id="showStudy" class="sub-buttons">
+      <button class="btn" onclick="showCactrochoihoctap()">Các trò chơi học tập</button>
+      <button class="btn" onclick="showSgk()">⛪ Sách điện tử</button>
+      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+    </div>
+  </div>
+
+    <div id="showCactrochoihoctap" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/', '_blank')">🌸 Giỏ hoa tặng thầy cô </button>
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="backToMenu()">⬅️ Quay Lại</button>
+    </div>
+  </div>
+
+   <div id="showSgk" class="sub-buttons">
+      <button class="btn" onclick="showLop6()">Lớp 6</button>
+      <button class="btn" onclick="showLop7()">Lớp 7</button>
+      <button class="btn" onclick="showLop8()">Lớp 8</button>
+      <button class="btn" onclick="showLop9()">Lớp 9</button>
+      <button class="btn" onclick="backToMenu()">⬅️ Quay Lại</button>
     </div>
   </div>
 
@@ -258,6 +274,12 @@
         mainButtons.style.display = 'block';
         setTimeout(() => mainButtons.style.opacity = '1', 100);
       }, 400);
+    }
+
+     function backToMenu() {
+      showCactrochoihoctap.classList.remove('show');
+      pythonButtons.classList.remove('show');
+      setTimeout(() => funMenu.classList.add('show'), 400);
     }
 
     // 🎵 Nhạc nền toggle
