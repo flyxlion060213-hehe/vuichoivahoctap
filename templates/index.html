@@ -108,13 +108,37 @@
       font-size: 1.5rem;
       color: white;
     }
+    .subject-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.subject-btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  background: #ff9ec7;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subject-btn:hover {
+  background: #ff7fb0;
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 
 <body>
 
   <audio id="bgMusic" loop preload="auto">
-    <source src="/Lucky Girl Syndrome.mp3" type="audio/mpeg">
+    <source src="/Nhac_nen." type="audio/mpeg">
   </audio>
 
   <button id="musicBtn">🎵</button>
@@ -166,37 +190,17 @@
     </div>
 
     <!-- SÁCH ĐIỆN TỬ -->
-    <div id="bookMenu" class="sub-buttons">
-      <button class="btn" onclick="alert('Lớp 6')">Lớp 6</button>
-      <button class="btn" onclick="alert('Lớp 7')">Lớp 7</button>
-      <button class="btn" onclick="alert('Lớp 8')">Lớp 8</button>
-      <button class="btn" onclick="alert('Lớp 9')">Lớp 9</button>
-      <button class="btn" onclick="backToStudy()">⬅️ Quay Lại</button>
-    </div>
-
-    <div class="subject">
-    <h3>Lớp 6</h3>
-    <button onclick="openSGK('6')">Sách Giáo Khoa</button>
-    <button onclick="openSBT('6')">Sách Bài Tập</button>
+<div id="bookMenu" class="sub-buttons">
+  <button class="btn" onclick="alert('Lớp 6')">Lớp 6</button>
+  <button class="btn" onclick="alert('Lớp 7')">Lớp 7</button>
+  <button class="btn" onclick="alert('Lớp 8')">Lớp 8</button>
+  <button class="btn" onclick="alert('Lớp 9')">Lớp 9</button>
+  <button class="btn" onclick="backToStudy()">⬅️ Quay Lại</button>
 </div>
 
-<div class="subject">
-    <h3>Lớp 7</h3>
-    <button onclick="openSGK('7')">Sách Giáo Khoa</button>
-    <button onclick="openSBT('7')">Sách Bài Tập</button>
-</div>
+<!-- ⭐ ĐÂY LÀ CHỖ ĐÚNG ĐỂ ĐẶT -->
+<div id="content" class="sub-buttons"></div>
 
-<div class="subject">
-    <h3>Lớp 8</h3>
-    <button onclick="openSGK('8')">Sách Giáo Khoa</button>
-    <button onclick="openSBT('8')">Sách Bài Tập</button>
-</div>
-
-<div class="subject">
-    <h3>Lớp 9</h3>
-    <button onclick="openSGK('9')">Sách Giáo Khoa</button>
-    <button onclick="openSBT('9')">Sách Bài Tập</button>
-</div>
 
 
   </div>
@@ -219,6 +223,43 @@
     function showScratch() {
       funMenu.classList.remove("show");
       scratchButtons.classList.add("show");
+    }
+
+// Mở SGK
+function openSGK(classId) {
+    showSubjectList("SGK", classId);
+}
+
+// Mở SBT
+function openSBT(classId) {
+    showSubjectList("SBT", classId);
+}
+
+// Hiển thị danh sách môn học
+function showSubjectList(type, classId) {
+    const subjects = [
+        "Toán","Ngữ Văn","Khoa học Tự nhiên","Lịch sử và Địa lí",
+        "Công nghệ","Giáo dục công dân","Âm nhạc","Mĩ thuật",
+        "Hoạt động trải nghiệm","Tin học"
+    ];
+
+    let html = `
+        <h2>${type === "SGK" ? "Sách Giáo Khoa" : "Sách Bài Tập"} - Lớp ${classId}</h2>
+        <div class="subject-list">
+    `;
+
+    subjects.forEach(sub => html += `<button class="subject-btn">${sub}</button>`);
+
+    html += `<button class="btn" onclick="backToBooks()">⬅️ Quay Lại</button></div>`;
+
+    const content = document.getElementById("content");
+    content.innerHTML = html;
+    content.classList.add("show");
+}
+
+    function backToBooks() {
+        document.getElementById("content").classList.remove("show");
+        bookMenu.classList.add("show");
     }
 
     function showPython() {
