@@ -27,24 +27,12 @@
       font-size: 3rem;
       margin-bottom: 40px;
       text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
+      animation: floatTitle 3s ease-in-out infinite;
     }
 
-    /* Hiệu ứng viết chữ */
-    #animatedTitle {
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid rgba(255, 119, 169, 0.8);
-      width: 0;
-      animation: typing 5s steps(30, end) forwards, blink 0.8s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
+    @keyframes floatTitle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .card {
@@ -63,6 +51,12 @@
       box-shadow: 0 12px 35px rgba(255, 150, 200, 0.5);
     }
 
+    p {
+      color: #ff6fa6;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
     .btn {
       display: inline-block;
       margin: 10px;
@@ -73,13 +67,14 @@
       border: none;
       border-radius: 40px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 130, 170, 0.4);
     }
 
     .btn:hover {
       transform: scale(1.08);
       background: linear-gradient(90deg, #ffb6d5, #ff8fc1);
+      box-shadow: 0 0 25px rgba(255, 150, 200, 0.8);
     }
 
     .sub-buttons {
@@ -87,7 +82,7 @@
       margin-top: 20px;
       opacity: 0;
       transform: translateY(20px);
-      transition: 0.6s;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .sub-buttons.show {
@@ -96,283 +91,205 @@
       transform: translateY(0);
     }
 
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    .b1 { width: 90px; height: 90px; background: #ffc4d8; top: 10%; left: 10%; animation-delay: 0s; }
+    .b2 { width: 130px; height: 130px; background: #ffd6e7; bottom: 15%; right: 15%; animation-delay: 2s; }
+    .b3 { width: 70px; height: 70px; background: #ffb6d5; top: 55%; right: 10%; animation-delay: 1s; }
+
     #musicBtn {
       position: absolute;
       top: 20px;
       right: 25px;
       background: rgba(255, 170, 200, 0.7);
+      border: none;
       border-radius: 50%;
       width: 50px;
       height: 50px;
       cursor: pointer;
       font-size: 1.5rem;
       color: white;
+      box-shadow: 0 4px 10px rgba(255, 140, 180, 0.4);
+      transition: all 0.3s ease;
     }
-    .subject-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: 20px 0;
+
+    #musicBtn:hover {
+      transform: scale(1.15);
+      background: rgba(255, 140, 180, 0.9);
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    #animatedTitle {
+  font-family: 'Pacifico', cursive;
+  color: #ff77a9;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid rgba(255, 119, 169, 0.8);
+  width: 0;
+  animation: typing 5s steps(30, end) forwards, blink 0.8s step-end infinite;
 }
 
-.subject-btn {
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: none;
-  background: #ff9ec7;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-.subject-btn:hover {
-  background: #ff7fb0;
-  transform: scale(1.05);
+@keyframes blink {
+  50% { border-color: transparent; }
 }
-
   </style>
 </head>
-
 <body>
 
+  <!-- Nhạc nền -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="/Nhac_nen." type="audio/mpeg">
+    <source src="/Nhac_nen.mp3" type="audio/mpeg">
   </audio>
 
-  <button id="musicBtn">🎵</button>
+  <!-- Nút bật/tắt nhạc -->
+  <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
 
+  <!-- Bong bóng -->
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
   <h1 id="animatedTitle">VUI CHƠI VÀ HỌC TẬP 🎀</h1>
-
   <div class="card">
     <p>Hãy chọn một hoạt động để bắt đầu 💕</p>
 
     <div id="mainButtons">
       <button class="btn" onclick="window.open('https://discord.gg/hwWg6FkDfs')">🤖 CHAT BOT AI</button>
       <button class="btn" onclick="showFun()">🎮 Giải Trí</button>
-      <button class="btn" onclick="showStudyMenu()">📚 Học Tập</button>
+      <button class="btn" onclick="showStudy()">📚 Học Tập</button>
     </div>
 
-    <!-- MENU GIẢI TRÍ -->
+    <!-- Mục chọn loại vui chơi -->
     <div id="funMenu" class="sub-buttons">
       <button class="btn" onclick="showScratch()">🧩 Scratch</button>
       <button class="btn" onclick="showPython()">🐍 Python</button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
 
-    <!-- SCRATCH -->
+    <!-- Sub menu Scratch -->
     <div id="scratchButtons" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">💥 Điện Biên Phủ Trên Không</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
       <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
     </div>
 
-    <!-- PYTHON -->
+    <!-- Sub menu Python -->
     <div id="pythonButtons" class="sub-buttons">
       <a class="btn" href="https://github.com/user-attachments/files/23474988/DoBom.py" download>💣 Dò Bom</a>
       <a class="btn" href="https://github.com/user-attachments/files/23474989/VotBong.py" download>🏐 Vợt Bóng</a>
       <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
     </div>
 
-    <!-- HỌC TẬP -->
-    <div id="studyMenu" class="sub-buttons">
-      <button class="btn" onclick="showStudyGames()">🎯 Trò chơi học tập</button>
-      <button class="btn" onclick="showBooks()">📖 Sách điện tử</button>
+    <!-- Menu học tập -->
+    <div id="showStudy" class="sub-buttons">
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/', '_blank')">🌸 Giỏ hoa tặng thầy cô </button>
       <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
     </div>
-
-    <!-- TRÒ CHƠI HỌC TẬP -->
-    <div id="studyGames" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/')">➗ Phép tính đơn giản</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/')">🌸 Giỏ hoa tặng thầy cô</button>
-      <button class="btn" onclick="backToStudy()">⬅️ Quay Lại</button>
-    </div>
-
-    <!-- SÁCH ĐIỆN TỬ -->
-<div id="bookMenu" class="sub-buttons">
-  <button class="btn" onclick="alert('Lớp 6')">Lớp 6</button>
-  <button class="btn" onclick="alert('Lớp 7')">Lớp 7</button>
-  <button class="btn" onclick="alert('Lớp 8')">Lớp 8</button>
-  <button class="btn" onclick="alert('Lớp 9')">Lớp 9</button>
-  <button class="btn" onclick="backToStudy()">⬅️ Quay Lại</button>
-</div>
-
-<!-- ⭐ ĐÂY LÀ CHỖ ĐÚNG ĐỂ ĐẶT -->
-<div id="content" class="sub-buttons"></div>
-
-
-
   </div>
 
   <script>
-    const mainButtons = document.getElementById("mainButtons");
-    const funMenu = document.getElementById("funMenu");
-    const scratchButtons = document.getElementById("scratchButtons");
-    const pythonButtons = document.getElementById("pythonButtons");
-    const studyMenu = document.getElementById("studyMenu");
-    const studyGames = document.getElementById("studyGames");
-    const bookMenu = document.getElementById("bookMenu");
+    const mainButtons = document.getElementById('mainButtons');
+    const funMenu = document.getElementById('funMenu');
+    const scratchButtons = document.getElementById('scratchButtons');
+    const pythonButtons = document.getElementById('pythonButtons');
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
 
-    /* MENU GIẢI TRÍ */
     function showFun() {
-      mainButtons.style.display = "none";
-      funMenu.classList.add("show");
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        funMenu.classList.add('show');
+      }, 400);
     }
 
     function showScratch() {
-      funMenu.classList.remove("show");
-      scratchButtons.classList.add("show");
-    }
-
-// Mở SGK
-function openSGK(classId) {
-    showSubjectList("SGK", classId);
-}
-
-// Mở SBT
-function openSBT(classId) {
-    showSubjectList("SBT", classId);
-}
-
-// Hiển thị danh sách môn học
-function showSubjectList(type, classId) {
-    const subjects = [
-        "Toán","Ngữ Văn","Khoa học Tự nhiên","Lịch sử và Địa lí",
-        "Công nghệ","Giáo dục công dân","Âm nhạc","Mĩ thuật",
-        "Hoạt động trải nghiệm","Tin học"
-    ];
-
-    let html = `
-        <h2>${type === "SGK" ? "Sách Giáo Khoa" : "Sách Bài Tập"} - Lớp ${classId}</h2>
-        <div class="subject-list">
-    `;
-
-    subjects.forEach(sub => html += `<button class="subject-btn">${sub}</button>`);
-
-    html += `<button class="btn" onclick="backToBooks()">⬅️ Quay Lại</button></div>`;
-
-    const content = document.getElementById("content");
-    content.innerHTML = html;
-    content.classList.add("show");
-}
-
-    function backToBooks() {
-        document.getElementById("content").classList.remove("show");
-        bookMenu.classList.add("show");
+      funMenu.classList.remove('show');
+      setTimeout(() => scratchButtons.classList.add('show'), 400);
     }
 
     function showPython() {
-      funMenu.classList.remove("show");
-      pythonButtons.classList.add("show");
+      funMenu.classList.remove('show');
+      setTimeout(() => pythonButtons.classList.add('show'), 400);
     }
 
     function backToFun() {
-      scratchButtons.classList.remove("show");
-      pythonButtons.classList.remove("show");
-      funMenu.classList.add("show");
+      scratchButtons.classList.remove('show');
+      pythonButtons.classList.remove('show');
+      setTimeout(() => funMenu.classList.add('show'), 400);
     }
 
-    /* HỌC TẬP */
-    function showStudyMenu() {
-      mainButtons.style.display = "none";
-      studyMenu.classList.add("show");
+    function showStudy() {
+      mainButtons.style.opacity = '0';
+      setTimeout(() => {
+        mainButtons.style.display = 'none';
+        document.getElementById('showStudy').classList.add('show');
+      }, 400);
     }
 
-    function showStudyGames() {
-      studyMenu.classList.remove("show");
-      studyGames.classList.add("show");
-    }
-
-    function showBooks() {
-      studyMenu.classList.remove("show");
-      bookMenu.classList.add("show");
-    }
-
-    function backToStudy() {
-      studyGames.classList.remove("show");
-      bookMenu.classList.remove("show");
-      studyMenu.classList.add("show");
-    }
-
-    /* QUAY LẠI MENU CHÍNH */
     function backToMain() {
-      funMenu.classList.remove("show");
-      studyMenu.classList.remove("show");
-      scratchButtons.classList.remove("show");
-      pythonButtons.classList.remove("show");
-      studyGames.classList.remove("show");
-      bookMenu.classList.remove("show");
-      mainButtons.style.display = "block";
-    }
-    function openSGK(classId) {
-    showSubjectList("SGK", classId);
-}
-
-function openSBT(classId) {
-    showSubjectList("SBT", classId);
-}
-
-function showSubjectList(type, classId) {
-    const subjects = [
-        "Toán",
-        "Ngữ Văn",
-        "Khoa học Tự nhiên",
-        "Lịch sử và Địa lí",
-        "Công nghệ",
-        "Giáo dục công dân",
-        "Âm nhạc",
-        "Mĩ thuật",
-        "Hoạt động trải nghiệm",
-        "Tin học"
-    ];
-
-    let html = `
-        <h2>${type === "SGK" ? "Sách Giáo Khoa" : "Sách Bài Tập"} - Lớp ${classId}</h2>
-        <div class="subject-list">
-    `;
-
-    subjects.forEach(sub => {
-        html += `<button class="subject-btn">${sub}</button>`;
-    });
-
-    html += `</div>`;
-
-    document.getElementById("content").innerHTML = html;
-}
-
-
-    /* NHẠC NỀN */
-    const musicBtn = document.getElementById("musicBtn");
-    const bgMusic = document.getElementById("bgMusic");
-    let started = false;
-
-    musicBtn.onclick = () => {
-      if (!started) {
-        started = true;
-        bgMusic.play();
-        musicBtn.textContent = "🔇";
-      } else {
-        if (bgMusic.paused) {
-          bgMusic.play();
-          musicBtn.textContent = "🔇";
-        } else {
-          bgMusic.pause();
-          musicBtn.textContent = "🎵";
-        }
-      }
-    };
-
-    /* LẶP HIỆU ỨNG VIẾT CHỮ */
-    function replayTitleAnimation() {
-      const t = document.getElementById("animatedTitle");
-      t.style.animation = "none";
-      void t.offsetWidth;
-      t.style.animation = "typing 5s steps(30,end) forwards, blink 0.8s infinite";
+      funMenu.classList.remove('show');
+      document.getElementById('showStudy').classList.remove('show'); // fix lỗi hiển thị lại menu học tập
+      scratchButtons.classList.remove('show');
+      pythonButtons.classList.remove('show');
+      setTimeout(() => {
+        mainButtons.style.display = 'block';
+        setTimeout(() => mainButtons.style.opacity = '1', 100);
+      }, 400);
     }
 
-    setInterval(replayTitleAnimation, 20000);
+    // 🎵 Nhạc nền toggle
+   let musicStarted = false;
+
+musicBtn.addEventListener('click', () => {
+  if (!musicStarted) {
+    // Chỉ play lần đầu sau click
+    bgMusic.play().then(() => {
+      musicBtn.textContent = '🔇';
+      musicStarted = true;
+    }).catch(err => console.log("Không thể phát nhạc:", err));
+  } else {
+    // Toggle bình thường
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => musicBtn.textContent = '🔇')
+        .catch(err => console.log("Không thể phát nhạc:", err));
+    } else {
+      bgMusic.pause();
+      musicBtn.textContent = '🎵';
+    }
+  }
+});
+
+     function replayTitleAnimation() {
+  const title = document.getElementById('animatedTitle');
+  title.style.animation = 'none';
+  void title.offsetWidth; // reset animation trick
+  title.style.animation = 'typing 5s steps(30, end) forwards, blink 0.8s step-end infinite';
+}
+
+setInterval(replayTitleAnimation, 20000);
   </script>
-
 </body>
 </html>
