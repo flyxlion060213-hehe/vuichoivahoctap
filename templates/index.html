@@ -3,210 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vui Chơi Và Học Tập</title>
+  <title>Vui Chơi Và Học Tập | Future Edition</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary-cyan: #00f2ff;
+      --primary-blue: #0066ff;
+      --bg-dark: #050a18;
+      --glass-bg: rgba(10, 20, 50, 0.7);
+      --neon-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    }
+
     body {
-      background: linear-gradient(180deg, #ffdce5, #ffe9f1);
-      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-dark);
+      /* Tạo nền lưới không gian */
+      background-image: 
+        linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      font-family: 'Rajdhani', sans-serif;
+      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      text-align: center;
       overflow: hidden;
     }
 
-    h1 {
-      font-family: 'Pacifico', cursive;
-      color: #ff77a9;
-      font-size: 3rem;
-      margin-bottom: 40px;
-      text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
-      animation: floatTitle 3s ease-in-out infinite;
+    /* Hiệu ứng hạt bụi không gian */
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
     }
 
-    @keyframes floatTitle {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-cyan);
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
+      text-align: center;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(255, 140, 180, 0.25);
-      padding: 50px 60px;
-      max-width: 500px;
-      backdrop-filter: blur(12px);
-      animation: fadeInUp 1.5s ease;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 35px rgba(255, 150, 200, 0.5);
+      background: var(--glass-bg);
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      border-radius: 15px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.1);
+      position: relative;
+      clip-path: polygon(0 10%, 5% 0, 100% 0, 100% 90%, 95% 100%, 0 100%); /* Cắt góc kiểu công nghệ */
     }
 
     p {
-      color: #ff6fa6;
-      font-size: 1.2rem;
+      color: #a0c4ff;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       margin-bottom: 30px;
     }
 
     .btn {
+      position: relative;
       display: inline-block;
-      margin: 10px;
-      padding: 12px 28px;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(90deg, #ff9ec7, #ff7fb0);
-      border: none;
-      border-radius: 40px;
+      margin: 12px;
+      padding: 15px 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary-cyan);
+      background: transparent;
+      border: 1px solid var(--primary-cyan);
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 130, 170, 0.4);
+      transition: all 0.4s;
+      overflow: hidden;
+      clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     }
 
     .btn:hover {
-      transform: scale(1.08);
-      background: linear-gradient(90deg, #ffb6d5, #ff8fc1);
-      box-shadow: 0 0 25px rgba(255, 150, 200, 0.8);
+      background: var(--primary-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 30px var(--primary-cyan);
+      transform: translateY(-3px);
+    }
+
+    /* Hiệu ứng quét sáng của nút */
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .sub-buttons {
       display: none;
-      margin-top: 20px;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: scale(0.9);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .sub-buttons.show {
       display: block;
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
     }
-
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 10s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-25px); }
-    }
-
-    .b1 { width: 90px; height: 90px; background: #ffc4d8; top: 10%; left: 10%; animation-delay: 0s; }
-    .b2 { width: 130px; height: 130px; background: #ffd6e7; bottom: 15%; right: 15%; animation-delay: 2s; }
-    .b3 { width: 70px; height: 70px; background: #ffb6d5; top: 55%; right: 10%; animation-delay: 1s; }
 
     #musicBtn {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 25px;
-      background: rgba(255, 170, 200, 0.7);
-      border: none;
+      background: transparent;
+      border: 2px solid var(--primary-cyan);
+      color: var(--primary-cyan);
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 60px; height: 60px;
       cursor: pointer;
       font-size: 1.5rem;
-      color: white;
-      box-shadow: 0 4px 10px rgba(255, 140, 180, 0.4);
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--neon-shadow);
     }
 
-    #musicBtn:hover {
-      transform: scale(1.15);
-      background: rgba(255, 140, 180, 0.9);
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
+    /* Typing animation cải tiến */
     #animatedTitle {
-  font-family: 'Pacifico', cursive;
-  color: #ff77a9;
-  font-size: 3rem;
-  margin-bottom: 40px;
-  text-shadow: 0 3px 10px rgba(255, 170, 200, 0.5);
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid rgba(255, 119, 169, 0.8);
-  width: 0;
-  animation: typing 5s steps(30, end) forwards, blink 0.8s step-end infinite;
-}
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 4px solid var(--primary-cyan);
+      width: 0;
+      margin: 0 auto 30px;
+      animation: typing 3.5s steps(30, end) forwards, blink 0.8s step-end infinite;
+    }
 
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
 
-@keyframes blink {
-  50% { border-color: transparent; }
-}
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Vòng tròn trang trí xoay chậm */
+    .deco-ring {
+      position: absolute;
+      border: 2px dashed var(--primary-cyan);
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Nhạc nền -->
-  <audio id="bgMusic" loop preload="auto">
+  <div class="stars"></div>
+  <div class="deco-ring" style="width: 500px; height: 500px;"></div>
+
+  <audio id="bgMusic" loop>
     <source src="/Landing.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Nút bật/tắt nhạc -->
-  <button id="musicBtn" title="Bật/Tắt nhạc 🎵">🎵</button>
+  <button id="musicBtn">🎧</button>
 
-  <!-- Bong bóng -->
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
-  <h1 id="animatedTitle">VUI CHƠI VÀ HỌC TẬP 🎀</h1>
+  <h1 id="animatedTitle">SYSTEM ACCESS: ONLINE</h1>
+  
   <div class="card">
-    <p>Hãy chọn một hoạt động để bắt đầu 💕</p>
+    <p>> SELECT_MODULE_TO_INITIALIZE</p>
 
     <div id="mainButtons">
-      <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">🤖 CHAT BOT AI</button>
-      <button class="btn" onclick="showFun()">🎮 Giải Trí</button>
-      <button class="btn" onclick="showStudy()">📚 Học Tập</button>
+      <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">AI_CORE_CHAT</button>
+      <button class="btn" onclick="showFun()">ENTER_FUN_ZONE</button>
+      <button class="btn" onclick="showStudy()">LEARNING_LAB</button>
     </div>
 
-    <!-- Mục chọn loại vui chơi -->
     <div id="funMenu" class="sub-buttons">
-      <button class="btn" onclick="showScratch()">🧩 Scratch</button>
-      <button class="btn" onclick="showPython()">🐍 Python</button>
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="showScratch()">SCRATCH_OS</button>
+      <button class="btn" onclick="showPython()">PYTHON_ENV</button>
+      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
     </div>
 
-    <!-- Sub menu Scratch -->
     <div id="scratchButtons" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/', '_blank')">💥 Điện Biên Phủ Trên Không</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/', '_blank')">❔ Trò chơi Mê cung</button>
-      <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">DEFENSE_GAME</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/')">MAZE_RUNNER</button>
+      <button class="btn" onclick="backToFun()">PREVIOUS_LEVEL</button>
     </div>
 
-    <!-- Sub menu Python -->
     <div id="pythonButtons" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/', '_blank')">💣 Dò Bom</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/', '_blank')">🏐 Vợt Bóng</button>
-      <button class="btn" onclick="backToFun()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/')">MINE_SWEEPER</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/')">BALL_PADDLE</button>
+      <button class="btn" onclick="backToFun()">PREVIOUS_LEVEL</button>
     </div>
 
-    <!-- Menu học tập -->
     <div id="showStudy" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/', '_blank')">🌍 Dịch Thuật</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/', '_blank')">⛪ Phép tính đơn giản</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/', '_blank')">🌸 Giỏ hoa tặng thầy cô </button>
-      <button class="btn" onclick="backToMain()">⬅️ Quay Lại</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/')">TRANSLATOR_V1</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/')">MATH_SOLVER</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/')">DIGITAL_FLOWER</button>
+      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
     </div>
   </div>
 
@@ -219,78 +234,63 @@
     const bgMusic = document.getElementById('bgMusic');
 
     function showFun() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        funMenu.classList.add('show');
-      }, 400);
+      mainButtons.style.display = 'none';
+      funMenu.classList.add('show');
     }
 
     function showScratch() {
       funMenu.classList.remove('show');
-      setTimeout(() => scratchButtons.classList.add('show'), 400);
+      setTimeout(() => scratchButtons.classList.add('show'), 300);
     }
 
     function showPython() {
       funMenu.classList.remove('show');
-      setTimeout(() => pythonButtons.classList.add('show'), 400);
+      setTimeout(() => pythonButtons.classList.add('show'), 300);
     }
 
     function backToFun() {
       scratchButtons.classList.remove('show');
       pythonButtons.classList.remove('show');
-      setTimeout(() => funMenu.classList.add('show'), 400);
+      setTimeout(() => funMenu.classList.add('show'), 300);
     }
 
     function showStudy() {
-      mainButtons.style.opacity = '0';
-      setTimeout(() => {
-        mainButtons.style.display = 'none';
-        document.getElementById('showStudy').classList.add('show');
-      }, 400);
+      mainButtons.style.display = 'none';
+      document.getElementById('showStudy').classList.add('show');
     }
 
     function backToMain() {
       funMenu.classList.remove('show');
-      document.getElementById('showStudy').classList.remove('show'); // fix lỗi hiển thị lại menu học tập
+      document.getElementById('showStudy').classList.remove('show');
       scratchButtons.classList.remove('show');
       pythonButtons.classList.remove('show');
       setTimeout(() => {
         mainButtons.style.display = 'block';
-        setTimeout(() => mainButtons.style.opacity = '1', 100);
-      }, 400);
+      }, 300);
     }
 
-    // 🎵 Nhạc nền toggle
-   let musicStarted = false;
+    // Music logic
+    let isPlaying = false;
+    musicBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        bgMusic.play();
+        musicBtn.textContent = '🔊';
+        musicBtn.style.boxShadow = "0 0 30px #00f2ff";
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = '🎧';
+        musicBtn.style.boxShadow = "0 0 15px rgba(0, 242, 255, 0.5)";
+      }
+      isPlaying = !isPlaying;
+    });
 
-musicBtn.addEventListener('click', () => {
-  if (!musicStarted) {
-    // Chỉ play lần đầu sau click
-    bgMusic.play().then(() => {
-      musicBtn.textContent = '🔇';
-      musicStarted = true;
-    }).catch(err => console.log("Không thể phát nhạc:", err));
-  } else {
-    // Toggle bình thường
-    if (bgMusic.paused) {
-      bgMusic.play().then(() => musicBtn.textContent = '🔇')
-        .catch(err => console.log("Không thể phát nhạc:", err));
-    } else {
-      bgMusic.pause();
-      musicBtn.textContent = '🎵';
-    }
-  }
-});
-
-     function replayTitleAnimation() {
-  const title = document.getElementById('animatedTitle');
-  title.style.animation = 'none';
-  void title.offsetWidth; // reset animation trick
-  title.style.animation = 'typing 5s steps(30, end) forwards, blink 0.8s step-end infinite';
-}
-
-setInterval(replayTitleAnimation, 20000);
+    // Replay typing title
+    setInterval(() => {
+      const title = document.getElementById('animatedTitle');
+      title.style.animation = 'none';
+      void title.offsetWidth;
+      title.style.animation = 'typing 3.5s steps(30, end) forwards, blink 0.8s step-end infinite';
+    }, 15000);
   </script>
 </body>
 </html>
