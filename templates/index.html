@@ -3,26 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vui Chơi Và Học Tập | Future Edition</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-
+  <title>Future Education | Interface V2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-cyan: #00f2ff;
-      --primary-blue: #0066ff;
-      --bg-dark: #050a18;
-      --glass-bg: rgba(10, 20, 50, 0.7);
+      --primary: #00f2ff;
+      --secondary: #0066ff;
+      --bg: #050a18;
+      --glass: rgba(10, 20, 50, 0.8);
       --neon-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
     }
 
     body {
-      background-color: var(--bg-dark);
-      /* Tạo nền lưới không gian */
+      background-color: var(--bg);
       background-image: 
         linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-      background-size: 50px 50px;
+      background-size: 40px 40px;
       font-family: 'Rajdhani', sans-serif;
       color: white;
       display: flex;
@@ -34,7 +31,7 @@
       overflow: hidden;
     }
 
-    /* Hiệu ứng hạt bụi không gian */
+    /* Hiệu ứng hạt sao nền */
     .stars {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -44,158 +41,133 @@
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      color: var(--primary-cyan);
-      font-size: 3.5rem;
+      color: var(--primary);
+      font-size: clamp(1.5rem, 5vw, 3rem);
       text-transform: uppercase;
-      letter-spacing: 5px;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(0, 242, 255, 0.7);
       text-align: center;
     }
 
     .card {
-      background: var(--glass-bg);
+      background: var(--glass);
       border: 1px solid rgba(0, 242, 255, 0.3);
-      border-radius: 15px;
-      padding: 40px;
+      border-radius: 10px;
+      padding: 30px;
       width: 90%;
       max-width: 600px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.1);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
       position: relative;
-      clip-path: polygon(0 10%, 5% 0, 100% 0, 100% 90%, 95% 100%, 0 100%); /* Cắt góc kiểu công nghệ */
+      clip-path: polygon(0 10%, 5% 0, 100% 0, 100% 90%, 95% 100%, 0 100%);
+      text-align: center;
     }
 
-    p {
+    .status-line {
       color: #a0c4ff;
-      font-size: 1.4rem;
+      font-size: 1.1rem;
       letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      font-family: monospace;
     }
 
+    /* Nút bấm kiểu Cyber */
     .btn {
       position: relative;
       display: inline-block;
-      margin: 12px;
-      padding: 15px 30px;
+      margin: 10px;
+      padding: 14px 28px;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--primary-cyan);
+      font-size: 0.85rem;
+      color: var(--primary);
       background: transparent;
-      border: 1px solid var(--primary-cyan);
+      border: 1px solid var(--primary);
       cursor: pointer;
-      transition: all 0.4s;
+      transition: all 0.3s;
       overflow: hidden;
       clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     }
 
     .btn:hover {
-      background: var(--primary-cyan);
-      color: var(--bg-dark);
-      box-shadow: 0 0 30px var(--primary-cyan);
-      transform: translateY(-3px);
-    }
-
-    /* Hiệu ứng quét sáng của nút */
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 25px var(--primary);
+      transform: translateY(-2px);
     }
 
     .sub-buttons {
       display: none;
       opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(10px);
+      transition: all 0.4s ease;
     }
 
     .sub-buttons.show {
       display: block;
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0);
     }
 
     #musicBtn {
       position: fixed;
-      top: 20px;
-      right: 25px;
+      top: 20px; right: 25px;
       background: transparent;
-      border: 2px solid var(--primary-cyan);
-      color: var(--primary-cyan);
+      border: 1px solid var(--primary);
+      color: var(--primary);
       border-radius: 50%;
-      width: 60px; height: 60px;
+      width: 55px; height: 55px;
       cursor: pointer;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: var(--neon-shadow);
+      z-index: 100;
     }
 
-    /* Typing animation cải tiến */
+    /* Animation tiêu đề */
     #animatedTitle {
       overflow: hidden;
       white-space: nowrap;
-      border-right: 4px solid var(--primary-cyan);
+      border-right: 3px solid var(--primary);
       width: 0;
       margin: 0 auto 30px;
-      animation: typing 3.5s steps(30, end) forwards, blink 0.8s step-end infinite;
+      animation: typing 3.5s steps(30, end) forwards;
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
 
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    /* Vòng tròn trang trí xoay chậm */
     .deco-ring {
       position: absolute;
-      border: 2px dashed var(--primary-cyan);
+      border: 1px dashed var(--primary);
       border-radius: 50%;
       opacity: 0.1;
-      animation: rotate 20s linear infinite;
+      animation: rotate 30s linear infinite;
       z-index: -1;
+      pointer-events: none;
     }
 
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
   <div class="stars"></div>
-  <div class="deco-ring" style="width: 500px; height: 500px;"></div>
+  <div class="deco-ring" style="width: 600px; height: 600px;"></div>
 
   <audio id="bgMusic" loop>
-    <source src="/Landing.mp3" type="audio/mpeg">
+    <source src="Landing.mp3" type="audio/mpeg">
   </audio>
 
-  <button id="musicBtn">🎧</button>
+  <button id="musicBtn" title="Toggle Music">🎧</button>
 
   <h1 id="animatedTitle">SYSTEM ACCESS: ONLINE</h1>
   
   <div class="card">
-    <p>> SELECT_MODULE_TO_INITIALIZE</p>
+    <p class="status-line">> INITIALIZING_INTERFACE...</p>
 
     <div id="mainButtons">
       <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">AI_CORE_CHAT</button>
-      <button class="btn" onclick="showFun()">ENTER_FUN_ZONE</button>
+      <button class="btn" onclick="showFun()">FUN_ZONE</button>
       <button class="btn" onclick="showStudy()">LEARNING_LAB</button>
     </div>
 
@@ -207,10 +179,10 @@
       <button class="btn" onclick="backToMain()">RETURN_HOME</button>
     </div>
 
-    <div id="showStudy" class="sub-buttons">
+    <div id="studyMenu" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/')">TRANSLATOR_V1</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1237207428/')">MATH_SOLVER</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/')">DIGITAL_FLOWER</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tracnghiem/')">MATH_QUIZ_7</button>
       <button class="btn" onclick="backToMain()">RETURN_HOME</button>
     </div>
   </div>
@@ -218,33 +190,38 @@
   <script>
     const mainButtons = document.getElementById('mainButtons');
     const funMenu = document.getElementById('funMenu');
+    const studyMenu = document.getElementById('studyMenu');
     const musicBtn = document.getElementById('musicBtn');
     const bgMusic = document.getElementById('bgMusic');
 
     function showFun() {
       mainButtons.style.display = 'none';
-      funMenu.classList.add('show');
+      funMenu.style.display = 'block';
+      setTimeout(() => funMenu.classList.add('show'), 10);
     }
+
     function showStudy() {
       mainButtons.style.display = 'none';
-      document.getElementById('showStudy').classList.add('show');
+      studyMenu.style.display = 'block';
+      setTimeout(() => studyMenu.classList.add('show'), 10);
     }
 
     function backToMain() {
       funMenu.classList.remove('show');
-      document.getElementById('showStudy').classList.remove('show');
-      scratchButtons.classList.remove('show');
-      pythonButtons.classList.remove('show');
+      studyMenu.classList.remove('show');
+      
       setTimeout(() => {
+        funMenu.style.display = 'none';
+        studyMenu.style.display = 'none';
         mainButtons.style.display = 'block';
-      }, 300);
+      }, 400);
     }
 
-    // Music logic
+    // Logic âm nhạc
     let isPlaying = false;
     musicBtn.addEventListener('click', () => {
       if (!isPlaying) {
-        bgMusic.play();
+        bgMusic.play().catch(() => alert("Vui lòng tương tác với trang web để phát nhạc!"));
         musicBtn.textContent = '🔊';
         musicBtn.style.boxShadow = "0 0 30px #00f2ff";
       } else {
@@ -255,12 +232,12 @@
       isPlaying = !isPlaying;
     });
 
-    // Replay typing title
+    // Hiệu ứng Reset tiêu đề
     setInterval(() => {
       const title = document.getElementById('animatedTitle');
       title.style.animation = 'none';
       void title.offsetWidth;
-      title.style.animation = 'typing 3.5s steps(30, end) forwards, blink 0.8s step-end infinite';
+      title.style.animation = 'typing 3.5s steps(30, end) forwards';
     }, 15000);
   </script>
 </body>
