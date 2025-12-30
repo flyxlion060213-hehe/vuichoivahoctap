@@ -200,21 +200,11 @@
     </div>
 
     <div id="funMenu" class="sub-buttons">
-      <button class="btn" onclick="showScratch()">SCRATCH_OS</button>
-      <button class="btn" onclick="showPython()">PYTHON_ENV</button>
-      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
-    </div>
-
-    <div id="scratchButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">DEFENSE_GAME</button>
       <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/')">MAZE_RUNNER</button>
-      <button class="btn" onclick="backToFun()">PREVIOUS_LEVEL</button>
-    </div>
-
-    <div id="pythonButtons" class="sub-buttons">
       <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/')">MINE_SWEEPER</button>
       <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/')">BALL_PADDLE</button>
-      <button class="btn" onclick="backToFun()">PREVIOUS_LEVEL</button>
+      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
     </div>
 
     <div id="showStudy" class="sub-buttons">
@@ -228,8 +218,6 @@
   <script>
     const mainButtons = document.getElementById('mainButtons');
     const funMenu = document.getElementById('funMenu');
-    const scratchButtons = document.getElementById('scratchButtons');
-    const pythonButtons = document.getElementById('pythonButtons');
     const musicBtn = document.getElementById('musicBtn');
     const bgMusic = document.getElementById('bgMusic');
 
@@ -237,23 +225,6 @@
       mainButtons.style.display = 'none';
       funMenu.classList.add('show');
     }
-
-    function showScratch() {
-      funMenu.classList.remove('show');
-      setTimeout(() => scratchButtons.classList.add('show'), 300);
-    }
-
-    function showPython() {
-      funMenu.classList.remove('show');
-      setTimeout(() => pythonButtons.classList.add('show'), 300);
-    }
-
-    function backToFun() {
-      scratchButtons.classList.remove('show');
-      pythonButtons.classList.remove('show');
-      setTimeout(() => funMenu.classList.add('show'), 300);
-    }
-
     function showStudy() {
       mainButtons.style.display = 'none';
       document.getElementById('showStudy').classList.add('show');
