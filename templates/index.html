@@ -3,25 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Future Education | Interface V2</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Future Education | Modern Interface</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #00f2ff;
-      --secondary: #0066ff;
-      --bg: #050a18;
-      --glass: rgba(10, 20, 50, 0.8);
-      --neon-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+      --primary: #2563eb;
+      --secondary: #60a5fa;
+      --bg: #f0f4f8;
+      --card-bg: #ffffff;
+      --text: #1e293b;
     }
 
     body {
       background-color: var(--bg);
       background-image: 
-        linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      font-family: 'Rajdhani', sans-serif;
-      color: white;
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(96, 165, 250, 0.1) 0px, transparent 50%);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -31,77 +30,71 @@
       overflow: hidden;
     }
 
-    /* Hiệu ứng hạt sao nền */
-    .stars {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      text-align: center;
+      z-index: 10;
     }
 
     h1 {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       color: var(--primary);
-      font-size: clamp(1.5rem, 5vw, 3rem);
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(0, 242, 255, 0.7);
-      text-align: center;
-    }
-
-    .card {
-      background: var(--glass);
-      border: 1px solid rgba(0, 242, 255, 0.3);
-      border-radius: 10px;
-      padding: 30px;
-      width: 90%;
-      max-width: 600px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-      position: relative;
-      clip-path: polygon(0 10%, 5% 0, 100% 0, 100% 90%, 95% 100%, 0 100%);
-      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      letter-spacing: -0.5px;
     }
 
     .status-line {
-      color: #a0c4ff;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      margin-bottom: 25px;
-      font-family: monospace;
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* Nút bấm kiểu Cyber */
     .btn {
-      position: relative;
-      display: inline-block;
-      margin: 10px;
-      padding: 14px 28px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--primary);
-      background: transparent;
-      border: 1px solid var(--primary);
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: white;
+      background: var(--primary);
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s;
-      overflow: hidden;
-      clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+      transition: all 0.2s ease;
     }
 
     .btn:hover {
-      background: var(--primary);
-      color: #000;
-      box-shadow: 0 0 25px var(--primary);
+      background: #1d4ed8;
       transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: #f1f5f9;
+      color: #475569;
+      margin-top: 20px;
+    }
+
+    .btn-outline:hover {
+      background: #e2e8f0;
+      color: var(--primary);
     }
 
     .sub-buttons {
       display: none;
       opacity: 0;
       transform: translateY(10px);
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
     }
 
     .sub-buttons.show {
@@ -112,78 +105,63 @@
 
     #musicBtn {
       position: fixed;
-      top: 20px; right: 25px;
-      background: transparent;
-      border: 1px solid var(--primary);
+      top: 20px;
+      right: 20px;
+      background: white;
+      border: none;
       color: var(--primary);
       border-radius: 50%;
-      width: 55px; height: 55px;
+      width: 50px; height: 50px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--neon-shadow);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       z-index: 100;
+      font-size: 1.2rem;
     }
 
-    /* Animation tiêu đề */
     #animatedTitle {
       overflow: hidden;
       white-space: nowrap;
-      border-right: 3px solid var(--primary);
+      border-right: 2px solid var(--primary);
       width: 0;
-      margin: 0 auto 30px;
-      animation: typing 3.5s steps(30, end) forwards;
+      margin: 0 auto;
+      animation: typing 3s steps(30, end) forwards;
     }
 
     @keyframes typing { from { width: 0; } to { width: 100%; } }
-
-    .deco-ring {
-      position: absolute;
-      border: 1px dashed var(--primary);
-      border-radius: 50%;
-      opacity: 0.1;
-      animation: rotate 30s linear infinite;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
-  <div class="stars"></div>
-  <div class="deco-ring" style="width: 600px; height: 600px;"></div>
 
   <audio id="bgMusic" loop>
     <source src="Landing.mp3" type="audio/mpeg">
   </audio>
 
-  <button id="musicBtn" title="Toggle Music">🎧</button>
+  <button id="musicBtn" onclick="toggleMusic()">🎧</button>
 
-  <h1 id="animatedTitle">SYSTEM ACCESS: ONLINE</h1>
-  
   <div class="card">
-    <p class="status-line">> INITIALIZING_INTERFACE...</p>
+    <div id="animatedTitle"><h1>SYSTEM ONLINE</h1></div>
+    <p class="status-line">> LOADING_INTERFACE_V2</p>
 
     <div id="mainButtons">
-      <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">AI_CORE_CHAT</button>
-      <button class="btn" onclick="showFun()">FUN_ZONE</button>
-      <button class="btn" onclick="showStudy()">LEARNING_LAB</button>
+      <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">AI CORE CHAT</button>
+      <button class="btn" onclick="showStudy()">LEARNING LAB</button>
+      <button class="btn" onclick="showFun()">FUN ZONE</button>
     </div>
 
     <div id="funMenu" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">DEFENSE_GAME</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/')">MAZE_RUNNER</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/')">MINE_SWEEPER</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/')">BALL_PADDLE</button>
-      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">DEFENSE GAME</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/')">MAZE RUNNER</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/')">MINE SWEEPER</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/')">BALL PADDLE</button>
+      <button class="btn btn-outline" onclick="backToMain()">RETURN HOME</button>
     </div>
 
     <div id="studyMenu" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/')">TRANSLATOR_V1</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/')">DIGITAL_FLOWER</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tracnghiem/')">MATH_QUIZ_7</button>
-      <button class="btn" onclick="backToMain()">RETURN_HOME</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1233610316/')">TRANSLATOR</button>
+      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1240052046/')">DIGITAL FLOWER</button>
+      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tracnghiem/')">MATH QUIZ 7</button>
+      <button class="btn btn-outline" onclick="backToMain()">RETURN HOME</button>
     </div>
   </div>
 
@@ -191,8 +169,8 @@
     const mainButtons = document.getElementById('mainButtons');
     const funMenu = document.getElementById('funMenu');
     const studyMenu = document.getElementById('studyMenu');
-    const musicBtn = document.getElementById('musicBtn');
     const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
 
     function showFun() {
       mainButtons.style.display = 'none';
@@ -209,36 +187,26 @@
     function backToMain() {
       funMenu.classList.remove('show');
       studyMenu.classList.remove('show');
-      
       setTimeout(() => {
         funMenu.style.display = 'none';
         studyMenu.style.display = 'none';
         mainButtons.style.display = 'block';
-      }, 400);
+      }, 300);
     }
 
-    // Logic âm nhạc
     let isPlaying = false;
-    musicBtn.addEventListener('click', () => {
+    function toggleMusic() {
       if (!isPlaying) {
-        bgMusic.play().catch(() => alert("Vui lòng tương tác với trang web để phát nhạc!"));
-        musicBtn.textContent = '🔊';
-        musicBtn.style.boxShadow = "0 0 30px #00f2ff";
+        bgMusic.play().then(() => {
+          musicBtn.textContent = '🔊';
+          isPlaying = true;
+        }).catch(err => alert("Vui lòng click vào màn hình trước khi bật nhạc!"));
       } else {
         bgMusic.pause();
         musicBtn.textContent = '🎧';
-        musicBtn.style.boxShadow = "0 0 15px rgba(0, 242, 255, 0.5)";
+        isPlaying = false;
       }
-      isPlaying = !isPlaying;
-    });
-
-    // Hiệu ứng Reset tiêu đề
-    setInterval(() => {
-      const title = document.getElementById('animatedTitle');
-      title.style.animation = 'none';
-      void title.offsetWidth;
-      title.style.animation = 'typing 3.5s steps(30, end) forwards';
-    }, 15000);
+    }
   </script>
 </body>
 </html>
