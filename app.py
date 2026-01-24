@@ -9,10 +9,11 @@ def index():
 
 @app.route('/Landing.mp3')
 def serve_music():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), '1024 (1).mp4')
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'Landing.mp3')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
 
 
 
