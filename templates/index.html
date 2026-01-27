@@ -72,6 +72,7 @@
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
+      text-decoration: none;
     }
 
     .btn:hover {
@@ -159,26 +160,6 @@
 
     <div id="studyMenu" class="sub-buttons">
       <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/translator/')">TRANSLATOR</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tri-an-thay-co/')">TEACHER'S DAYdiv class="card">
-    <div id="animatedTitle"><h1>SYSTEM ONLINE</h1></div>
-    <p class="status-line">> LOADING_INTERFACE_V2</p>
-
-    <div id="mainButtons">
-      <button class="btn" onclick="window.open('https://study-bot-web-e2um.onrender.com/')">AI CORE CHAT</button>
-      <button class="btn" onclick="showStudy()">LEARNING LAB</button>
-      <button class="btn" onclick="showFun()">FUN ZONE</button>
-    </div>
-
-    <div id="funMenu" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1154470350/')">DEFENSE GAME</button>
-      <button class="btn" onclick="window.open('https://scratch.mit.edu/projects/1246346503/')">MAZE RUNNER</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/DoBom/')">MINE SWEEPER</button>
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/VotBong/')">BALL PADDLE</button>
-      <button class="btn btn-outline" onclick="backToMain()">RETURN HOME</button>
-    </div>
-
-    <div id="studyMenu" class="sub-buttons">
-      <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/translator/')">TRANSLATOR</button>
       <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tri-an-thay-co/')">FLOWER BASKET FOR TEACHER</button>
       <button class="btn" onclick="window.open('https://flyxlion060213-hehe.github.io/tracnghiem/')">MATH QUIZ THCS</button>
       <button class="btn btn-outline" onclick="backToMain()">RETURN HOME</button>
@@ -192,7 +173,7 @@
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
 
-    // Thiết lập âm lượng nhẹ nhàng (0.2 tương đương 20%)
+    // Thiết lập âm lượng nhẹ nhàng
     bgMusic.volume = 0.2;
 
     function showFun() {
